@@ -1,4 +1,5 @@
 import os, datetime
+import binascii
 
 from django.conf import settings
 from django.db import models
@@ -47,8 +48,7 @@ class Verification(models.Model):
         """
         Generates a random hash
         """
-        return os.urandom(32).encode('hex') 
-
+        return binascii.hexlify(os.urandom(32)).decode()
     def save(self, *args, **kwargs):
         # Let's create an unique hash
         if not self.pk:
